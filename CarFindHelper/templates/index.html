@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="/Cars/static/js/script.js" async></script>
+    <link rel="stylesheet" type="text/css" href="../Cars/static/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Find Helper</title>
+</head>
+<body class="page">
+    <section class="content">
+          <div class='air air1'></div>
+          <div class='air air2'></div>
+          <div class='air air3'></div>
+          <div class='air air4'></div>
+
+
+
+         <div class="upper-section">
+                <div class="page-title">
+                    <div class="page-title-more">
+                        <img class ="logo" src="Cars/static/image/Logo.png">
+                    </div>
+                </div>
+                <div></div>
+                <div class="find-button-div" id="find-button-section" >
+                    <div class="find"  onclick="find_tab(1)">Find your car</div>
+
+                </div>
+                <div class="about-section">
+                    <div class="about" onclick="find_tab(2)">
+                        About Page
+                    </div>
+                </div>
+         </div>
+        <div class="main-page">
+
+            <form method="post" class="col-md">
+                {% csrf_token %}
+                <div class="search-section" id="search-box">
+                    <div class="tab-section">
+                        <div class="budget-age-section" id="budget-age">
+                            <div class="budget-box">
+                                <p>Type your budget:</p>
+                                <input type="number" step=0.01" class="budget-search" name="min_price" placeholder="Minimum Price">
+                                <input type="number" step=0.01" class="budget-search" name="max_price" placeholder="Max Price">
+                            </div>
+
+                            <div class="age-box">
+                                <p>Type age of your Car:</p>
+                                <input type="number" class="budget-search" name ="age_min" placeholder="Min Age">
+                                <input type="number" class="budget-search" name ="age_max" placeholder="Max Age">
+                            </div>
+                        </div>
+
+
+                        <div class="type-drive-section" id="type-drive">
+                            <div class="type-box">
+                                <p>Choose type of your vehicle:</p>
+                                <input type="radio" class="type" id="Miejski" name="Type" value="city_cars">
+                                <label class="type-lab" for="Miejski">Samochod miejski</label><br>
+                                <input class="type" type="radio" id="Kompakt" name="Type" value="compact">
+                                <label class="type-lab" for="Kompakt">Kompakt</label><br>
+                                <input class="type" type="radio" id="Coupe" name="Type" value="coupe">
+                                <label class="type-lab" for="Coupe">Coupe</label><br>
+                                <input class="type" type="radio" id="Cabrio" name="Type" value="convertible">
+                                <label class="type-lab" for="Cabrio">Cabrio</label><br>
+                                <input class="type" type="radio" id="SUV" name="Type" value="SUV">
+                                <label class="type-lab" for="SUV">SUV</label><br>
+                                <input class="type" type="radio" id="Sedan" name="Type" value="sedan">
+                                <label class="type-lab" for="Sedan">Sedan</label><br>
+                                <input class="type" type="radio" id="Kombi" name="Type" value="station_wagon">
+                                <label class="type-lab" for="Kombi">Kombi</label><br>
+                                <input class="type" type="radio" id="Van" name="Type" value="minivan">
+                                <label class="type-lab" for="Van">Van</label><br>
+                            </div>
+
+                            <div class="drive-box">
+                                <p>What type of drive do you choose:</p>
+                                <input class="drive-type" type="radio" id="front" name="drive" value="Front wheels">
+                                <label class="drive-type-lab" for="front">Front wheel drive</label><br>
+                                <input class="drive-type" type="radio" id="rear" name="drive" value="Rear wheels">
+                                <label class="drive-type-lab" for="rear">Rear wheel drive</label><br>
+                                <input class="drive-type" type="radio" id="all" name="drive" value="4x4">
+                                <label class="drive-type-lab" for="all">All wheel drive</label><br>
+                            </div>
+                        </div>
+
+
+                        <div class="eco-power-section" id="eco-power">
+                            <div class="eco-box">
+                               <p>Is car economy important to you:</p><br>
+                                <input class="slider" type="range" name="eco" list="markers"  />
+                                <datalist  id="eco">
+                                    <option value="0"></option>
+                                    <option value="25"></option>
+                                    <option value="50"></option>
+                                    <option value="75"></option>
+                                    <option value="100"></option>
+                                </datalist>
+                            </div>
+
+                            <div class="power-box">
+                                <p>Is car power an important aspect:</p><br>
+                                <input class="slider" type="range"  name="power" list="markers"  />
+                                <datalist  id="power">
+                                    <option value="0"></option>
+                                    <option value="25"></option>
+                                    <option value="50"></option>
+                                    <option value="75"></option>
+                                    <option value="100"></option>
+                                </datalist>
+                            </div>
+                        </div>
+
+                        <div class="next-section">
+                            <button type="button" onclick="next_tab();" class="next-tab-button">Size and Drive</button>
+                            <button type="button" class="prev-tab-button"  onclick="prev_tab();" disabled></button>
+                        </div>
+
+                    </div>
+                    <div class="tab-type-section">
+                        <div class="tab-type-box" id="budget-age-tab-box">
+                            <input type="radio" class='tabs' id="budget-age-tab" name="tabs"  onclick="tab_function(1);" checked>
+                            <label class="label-tab" for="budget-age-tab">Budget and Age</label></div>
+                        <div class="tab-type-box" id="type-drive-tab-box">
+                            <input type="radio" class='tabs'id="size-drive-tab" name="tabs"  onclick="tab_function(2);">
+                            <label class="label-tab" for="size-drive-tab">Type and Drive</label>
+                            </div>
+                        <div class="tab-type-box" id="eco-power-tab-box">
+                            <input type="radio" class='tabs'id="eco-power-tab" name="tabs"  onclick="tab_function(3);">
+                            <label class="label-tab" for="eco-power-tab">Economic and Power</label>
+                        </div>
+                        <div class="tab-type-box">
+                            <input type="submit" class="tabs" id="submit-tab" onclick="find_tab(2)"  >
+                            <label class="label-tab" for="submit-tab">Submit</label>
+                        </div>
+                    </div>
+                </div>
+            </form>
+                <div class="result-section">
+                     {% if working == 1 %}
+                        {% if ilosc > 0 %}
+                            {% for x in Cars %}
+                                <div class='cars' >
+                                {% for y in x %}
+                                    {% if forloop.counter0 == 1 %}
+                                        <h3 class="y"><span class="badge badge-primary"></span><img class="zdj" src="{{ y }}" alt="Image" style="width:250px"></h3>
+                                    {% else %}
+                                        <h3 class="y"><span class="badge badge-primary"></span> {{y}}</h3>
+                                    {% endif %}
+                                {% endfor %}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endif %}
+                </div>
+        </div>
+     </section>
+</body>
+</html>
